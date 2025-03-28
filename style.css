@@ -1,0 +1,155 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+}
+
+.input-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.algorithm-selector {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+select, input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.process-input {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.remove-btn {
+    background-color: #e74c3c;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+#simulate-btn {
+    background-color: #2ecc71;
+    padding: 12px 20px;
+    font-size: 16px;
+}
+
+.results-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.gantt-chart-container {
+    margin-bottom: 30px;
+}
+
+#gantt-chart {
+    display: flex;
+    height: 60px;
+    margin-top: 20px;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.gantt-block {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    min-width: 50px;
+    position: relative;
+}
+
+.gantt-block.idle {
+    background-color: #95a5a6;
+}
+
+.gantt-block::after {
+    content: attr(data-end);
+    position: absolute;
+    bottom: -20px;
+    font-size: 12px;
+    color: #333;
+}
+
+.metrics-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.metric-item {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.process-details table {
+    margin-top: 15px;
+}
+
+.hidden {
+    display: none;
+}

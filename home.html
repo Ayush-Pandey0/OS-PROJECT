@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPU Scheduling Visualizer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 40px 20px;
+            margin: 0 auto;
+        }
+
+        /* Header/Nav */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-btn {
+            background: rgba(255,255,255,0.9);
+            color: #3498db;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .about-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        /* Demo Section */
+        .demo-chart {
+            width: 100%;
+            height: 80px;
+            background: #f8f9fa;
+            margin: 30px 0;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .process {
+            position: absolute;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        /* About Section */
+        .about-section {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            margin: 80px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to right, #3498db, #2ecc71, #f1c40f, #e74c3c);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .team-member {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3498db, #2ecc71);
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #e4e8f0;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #3498db;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 60px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(52,152,219,0.3);
+            display: inline-block;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(52,152,219,0.4);
+            background: linear-gradient(135deg, #2ecc71 0%, #3498db 100%);
+        }
+
+        .btn i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Navigation -->
+        <nav class="nav fade-in">
+            <div class="logo">CPU Visualizer</div>
+            <button class="about-btn" onclick="scrollToAbout()">
+                <i class="fas fa-users"></i> About Team
+            </button>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero fade-in">
+            <h1>CPU Scheduling Algorithm Visualizer</h1>
+            <p>Understand how different scheduling algorithms work through interactive visualization and real-time performance metrics</p>
+            
+            <div class="demo-chart">
+                <div class="process" style="width: 30%; left: 0%; background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); border-radius: 15px 0 0 15px;">FCFS</div>
+                <div class="process" style="width: 25%; left: 30%; background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);">SJF</div>
+                <div class="process" style="width: 20%; left: 55%; background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);">RR</div>
+                <div class="process" style="width: 25%; left: 75%; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); border-radius: 0 15px 15px 0;">Priority</div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="/simulator" class="btn">
+                    Launch Simulator <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="fade-in delay-1">
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>Interactive Visualization</h3>
+                    <p>See algorithms in action with dynamic Gantt charts and process timelines</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Performance Metrics</h3>
+                    <p>Compare waiting time, turnaround time, and throughput across algorithms</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <h3>Custom Scenarios</h3>
+                    <p>Create your own process mix with custom arrival times and burst durations</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section fade-in delay-2">
+            <h2 style="text-align: center; margin-bottom: 10px; color: #2c3e50;">About The Team</h2>
+            <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Developed by computer science students passionate about operating systems and educational tools
+            </p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Ayush Pandey</h3>
+                    <p style="color: #7f8c8d; margin-top: 5px;">Registration: 12313405</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Nitin kumar</h3>
+                    <p style="color: #7f8c8d; margin-top: 5px;">Registration: 12313706</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Aniket</h3>
+                    <p style="color: #7f8c8d; margin-top: 5px;">Registration: 12325715</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Smooth scroll to about section
+        function scrollToAbout() {
+            document.getElementById('about').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Add hover effects to process blocks
+        const processes = document.querySelectorAll('.process');
+        processes.forEach(process => {
+            process.addEventListener('mouseenter', () => {
+                process.style.transform = 'scale(1.05)';
+                process.style.zIndex = '10';
+            });
+            process.addEventListener('mouseleave', () => {
+                process.style.transform = 'scale(1)';
+                process.style.zIndex = '1';
+            });
+        });
+
+        // Add hover effects to team members
+        const members = document.querySelectorAll('.team-member');
+        members.forEach(member => {
+            member.addEventListener('mouseenter', () => {
+                const avatar = member.querySelector('.member-avatar');
+                avatar.style.transform = 'scale(1.1)';
+                avatar.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+            });
+            member.addEventListener('mouseleave', () => {
+                const avatar = member.querySelector('.member-avatar');
+                avatar.style.transform = 'scale(1)';
+                avatar.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
