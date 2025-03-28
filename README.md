@@ -1,5 +1,13 @@
 CPU Scheduling Algorithm Simulator
-cpu-scheduler/ ├── app.py # Flask application ├── scheduler.py # Scheduling algorithms ├── templates/ │ ├── home.html # Landing page │ └── simulator.html # Simulation interface └── static/ ├── style.css # Stylesheets └── script.js # Frontend logic
+cpu-scheduler/
+├── app.py                 # Flask application entry point
+├── scheduler.py           # Core scheduling algorithms
+├── templates/
+│   ├── home.html          # Landing page (new)
+│   └── simulator.html     # Main simulator page (formerly index.html)
+└── static/
+    ├── style.css          # Styles for simulator page
+    └── script.js          # JavaScript for simulator functionality
 
 An interactive web application that visualizes various CPU scheduling algorithms with real-time performance metrics.
 
