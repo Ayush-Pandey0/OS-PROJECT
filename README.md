@@ -44,8 +44,8 @@ Usage Landing Page:
 
 Overview of features
 
-Team information Ayush Pandey (12313405) - Backend Developer
+Team information Ayush Pandey (12313405) 
 
-Nitin kumar(1232412) - Frontend Developer
+Nitin kumar(1232412)
 
-Aniket (1232412) - Algorithm Specialist
+Aniket (1232412)
