@@ -44,8 +44,7 @@ Usage Landing Page:
 
 Overview of features
 
-Team information Ayush Pandey (12313405) 
-
+Team information =>
+Ayush Pandey (12313405) 
 Nitin kumar(1232412)
-
 Aniket (1232412)
